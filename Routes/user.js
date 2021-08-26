@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const jwt = require ("jsonwebtoken");
-// const { session } = require("passport");
 const passport = require("passport");
 const session = {session: false};
 
@@ -21,7 +20,7 @@ const login = async (req, res, next)=>{
             }else if(!user){
                 res.status(401).json({msg: "User not found"});
             }else{
-                const fn = async(error) => error ? next(error) : res.status(200).json({user, token: jwt.sign({user: {id: user.id, name: user.name}})});
+                const fn = async(error) => error ? next(error) : res.status(200).json({user, token: jwt.sign({user: {id: user.id, name: user.name}}, process.env.secert_Key)});
                 req.login(user, session, fn);
             }
         }catch(error){
@@ -31,7 +30,7 @@ const login = async (req, res, next)=>{
 
 };
 
-router.post("register", passport.authenticate("resgister", session), register);
+router.post("/register", passport.authenticate("register", session), register);
 router.get("/profile", passport.authenticate("jwt", session), profile);
 router.post("/login", login);
 

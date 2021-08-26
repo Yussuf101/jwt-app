@@ -15,12 +15,14 @@ app.get("/", (req, res)=>{
 
 app.use(express.json());
 
-app.use ("/user", userRouter);
-app.use("*", errorRouter);
-
 passport.use('register', registerStrategy);
 passport.use('login', loginStrategy);
 passport.use(verifyStrategy);
+
+app.use ("/user", userRouter);
+app.use("*", errorRouter);
+
+
 
 app.listen(process.env.HTTP_PORT || 5000, async()=>{
     connection.authenticate();
