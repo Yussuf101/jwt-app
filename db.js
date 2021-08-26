@@ -1,5 +1,4 @@
-const {Sequelize} = require("sequelize");
-
+const { Sequelize } = require("sequelize");
 
 module.exports.connection = new Sequelize(
     process.env.SQL_DB_NAME,
@@ -7,7 +6,7 @@ module.exports.connection = new Sequelize(
     process.env.SQL_DB_PASSWORD,
     {
         host: process.env.SQL_DB_HOST,
-        dialect: process.env.SQL_DB_DIALECT
-        //logging: false 
+        dialect: process.env.SQL_DB_DIALECT,
+        //logging: false
     }
 )
